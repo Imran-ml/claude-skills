@@ -1,0 +1,131 @@
+{
+  "mcpServers": {
+    // ─── GitHub ────────────────────────────────────────────────────────────
+    // Manage issues, PRs, repos, actions, and more.
+    // Get token: https://github.com/settings/tokens (scopes: repo, read:org)
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+
+    // ─── Filesystem ────────────────────────────────────────────────────────
+    // Read/write local files outside the current project directory.
+    // Limit paths to specific directories for security.
+    "filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home",
+        "/tmp"
+      ]
+    },
+
+    // ─── Memory ────────────────────────────────────────────────────────────
+    // Persistent knowledge graph — Claude can store and recall facts
+    // across conversations. Great for long-running projects.
+    "memory": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+
+    // ─── Brave Search ──────────────────────────────────────────────────────
+    // Web search via Brave. Get API key: https://brave.com/search/api/
+    "brave-search": {
+      "type": "http",
+      "url": "https://api.search.brave.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${BRAVE_API_KEY}"
+      }
+    },
+
+    // ─── PostgreSQL ────────────────────────────────────────────────────────
+    // Read-only database access. Claude can query your DB for context.
+    // Connection string format: postgresql://user:pass@host:5432/dbname
+    "postgres": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "${DATABASE_URL}"
+      ]
+    },
+
+    // ─── Slack ─────────────────────────────────────────────────────────────
+    // Read channels, search messages, post updates.
+    // Get token: https://api.slack.com/apps → OAuth & Permissions
+    "slack": {
+      "type": "http",
+      "url": "https://mcp.slack.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SLACK_BOT_TOKEN}"
+      }
+    },
+
+    // ─── Notion ────────────────────────────────────────────────────────────
+    // Read/write Notion pages and databases.
+    // Get token: https://www.notion.so/my-integrations
+    "notion": {
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${NOTION_TOKEN}"
+      }
+    },
+
+    // ─── Linear ────────────────────────────────────────────────────────────
+    // Manage issues, projects, and cycles in Linear.
+    // Get token: Linear → Settings → API → Personal API keys
+    "linear": {
+      "type": "http",
+      "url": "https://mcp.linear.app/mcp",
+      "headers": {
+        "Authorization": "Bearer ${LINEAR_API_KEY}"
+      }
+    },
+
+    // ─── Sentry ────────────────────────────────────────────────────────────
+    // Query errors, issues, and performance data from Sentry.
+    "sentry": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sentry"],
+      "env": {
+        "SENTRY_AUTH_TOKEN": "${SENTRY_AUTH_TOKEN}",
+        "SENTRY_ORG": "${SENTRY_ORG}"
+      }
+    },
+
+    // ─── AWS (via Claude's official AWS MCP) ───────────────────────────────
+    // Interact with AWS services.
+    // Requires: AWS credentials in environment or ~/.aws/credentials
+    // "aws": {
+    //   "type": "stdio",
+    //   "command": "uvx",
+    //   "args": ["awslabs.aws-mcp-servers"]
+    // },
+
+    // ─── Puppeteer ─────────────────────────────────────────────────────────
+    // Browser automation — take screenshots, scrape pages, fill forms.
+    // "puppeteer": {
+    //   "type": "stdio",
+    //   "command": "npx",
+    //   "args": ["-y", "@modelcontextprotocol/server-puppeteer"]
+    // },
+
+    // ─── SQLite ────────────────────────────────────────────────────────────
+    // Query a local SQLite database.
+    // "sqlite": {
+    //   "type": "stdio",
+    //   "command": "uvx",
+    //   "args": ["mcp-server-sqlite", "--db-path", "./data/local.db"]
+    // }
+  }
+}

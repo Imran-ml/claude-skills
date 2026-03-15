@@ -1,0 +1,14 @@
+# Claude Code — never commit local overrides
+.claude/settings.local.json
+
+# Secrets & environment
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node (if any helper scripts use Node)
+node_modules/

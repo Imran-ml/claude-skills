@@ -1,0 +1,9 @@
+# Normalize line endings to LF for all text files
+* text=auto eol=lf
+
+# Shell scripts must be LF
+*.sh text eol=lf
+
+# JSON and Markdown — LF
+*.json text eol=lf
+*.md   text eol=lf

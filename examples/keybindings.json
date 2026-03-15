@@ -1,0 +1,84 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-keybindings.json",
+  "$docs": "https://code.claude.com/docs/en/keybindings",
+
+  // ── Place this file at: ~/.claude/keybindings.json ───────────────────────
+  // Auto-reloads when you save. Use /keybindings to open the settings UI.
+  // Set a binding to null to UNBIND it.
+
+  "bindings": [
+    {
+      // ── Chat Context ──────────────────────────────────────────────────────
+      "context": "Chat",
+      "bindings": {
+        // Open your $EDITOR to compose the message (great for long prompts)
+        "ctrl+e": "chat:externalEditor",
+
+        // Stash the current message to work on something else
+        "ctrl+s": "chat:stash",
+
+        // Submit message (default: Enter)
+        // "ctrl+enter": "chat:submit",
+
+        // Paste image from clipboard
+        "ctrl+v": "chat:imagePaste",
+
+        // Open model picker
+        // "ctrl+m": "chat:modelPicker",
+
+        // Unbind ctrl+u (default: clear line) if it conflicts with shell habits
+        // "ctrl+u": null
+      }
+    },
+
+    {
+      // ── Global Actions ────────────────────────────────────────────────────
+      "context": "Global",
+      "bindings": {
+        // Toggle task list
+        "ctrl+t": "app:toggleTodos",
+
+        // Toggle transcript viewer
+        "ctrl+o": "app:toggleTranscript"
+      }
+    },
+
+    {
+      // ── Autocomplete ──────────────────────────────────────────────────────
+      "context": "Autocomplete",
+      "bindings": {
+        // Accept suggestion (default: Tab)
+        "tab": "autocomplete:accept",
+
+        // Dismiss suggestion
+        "escape": "autocomplete:dismiss",
+
+        // Navigate suggestions
+        "down": "autocomplete:next",
+        "up": "autocomplete:previous"
+      }
+    },
+
+    {
+      // ── Confirmation Dialogs ──────────────────────────────────────────────
+      "context": "Confirmation",
+      "bindings": {
+        "y": "confirm:yes",
+        "enter": "confirm:yes",
+        "n": "confirm:no",
+        "escape": "confirm:no",
+
+        // Toggle explanation panel
+        "ctrl+e": "confirm:toggleExplanation"
+      }
+    },
+
+    {
+      // ── Chord Example (key sequence) ──────────────────────────────────────
+      // "context": "Chat",
+      // "bindings": {
+      //   "ctrl+k ctrl+d": "chat:externalEditor"   // Press Ctrl+K then Ctrl+D
+      // }
+    }
+  ]
+}

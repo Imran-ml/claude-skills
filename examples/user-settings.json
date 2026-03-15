@@ -1,0 +1,53 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-settings.json",
+
+  // ── Place this file at: ~/.claude/settings.json ──────────────────────────
+  // Applies to ALL your projects (user-level settings).
+  // Do NOT commit this file — it's personal.
+
+  // ─── Model ────────────────────────────────────────────────────────────────
+  "model": "claude-sonnet-4-6",
+
+  // ─── API ──────────────────────────────────────────────────────────────────
+  // "apiBaseUrl": "https://api.anthropic.com",
+
+  // ─── Permission Mode ──────────────────────────────────────────────────────
+  // "default"          — Claude asks for most actions
+  // "acceptEdits"      — Auto-accept file edits, ask for shell commands
+  // "autoEdit"         — Minimal interruptions
+  // "bypassPermissions"— No permission checks (careful!)
+  "permissionMode": "default",
+
+  // ─── Global Tool Permissions ──────────────────────────────────────────────
+  "allowedTools": [
+    "Read",
+    "Glob",
+    "Grep"
+  ],
+
+  // ─── Environment Variables ────────────────────────────────────────────────
+  "env": {
+    "MAX_MCP_OUTPUT_TOKENS": "50000"
+  },
+
+  // ─── Appearance ───────────────────────────────────────────────────────────
+  // "theme": "dark",   // "dark" | "light" | "system"
+
+  // ─── Hooks (user-level, apply to all projects) ────────────────────────────
+  "hooks": {
+    // Desktop notification when Claude finishes
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/notify-done.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}

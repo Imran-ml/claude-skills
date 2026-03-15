@@ -1,0 +1,95 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-settings.json",
+
+  // ─── Model ────────────────────────────────────────────────────────────────
+  // "model": "claude-opus-4-6",
+  // "model": "claude-sonnet-4-6",
+  // "model": "claude-haiku-4-5-20251001",
+
+  // ─── API ──────────────────────────────────────────────────────────────────
+  // "apiBaseUrl": "https://api.anthropic.com",
+
+  // ─── Permission Mode ──────────────────────────────────────────────────────
+  // Options: "default" | "acceptEdits" | "autoEdit" | "bypassPermissions"
+  //   default          — Claude asks permission for most actions
+  //   acceptEdits      — Auto-accepts file edits, asks for commands
+  //   autoEdit         — Claude edits freely, minimal interruption
+  //   bypassPermissions — No permission checks (use with extreme caution)
+  "permissionMode": "default",
+
+  // ─── Tool Permissions ─────────────────────────────────────────────────────
+  // Tools always allowed (no permission prompt):
+  "allowedTools": [
+    "Read",
+    "Glob",
+    "Grep",
+    "LS"
+  ],
+
+  // Tools always denied (Claude cannot use them):
+  // "deniedTools": ["Bash"],
+
+  // ─── Environment Variables ────────────────────────────────────────────────
+  // Passed to Claude and all subprocesses. Supports ${VAR} expansion.
+  "env": {
+    // Increase max tokens from MCP tool responses (default: 25000)
+    "MAX_MCP_OUTPUT_TOKENS": "50000",
+
+    // Enable MCP tool search (auto-enabled when tools > 10% context window)
+    // "ENABLE_TOOL_SEARCH": "true",
+
+    // Proxy settings (if behind a corporate proxy)
+    // "HTTP_PROXY":  "http://proxy.example.com:8080",
+    // "HTTPS_PROXY": "http://proxy.example.com:8080",
+    // "NO_PROXY":    "localhost,127.0.0.1"
+  },
+
+  // ─── Hooks ────────────────────────────────────────────────────────────────
+  // Lifecycle hooks — see hooks/ directory for scripts
+  "hooks": {
+    // Run a script before every tool use
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/pre-bash-check.sh",
+            "timeout": 10,
+            "async": false
+          }
+        ]
+      }
+    ],
+
+    // Log every completed tool use to a file
+    "PostToolUse": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/post-tool-log.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ],
+
+    // Desktop notification when Claude finishes
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/notify-done.sh",
+            "timeout": 5,
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}

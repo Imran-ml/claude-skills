@@ -1,0 +1,45 @@
+{
+  // ── Enterprise Managed MCP Configuration ──────────────────────────────────
+  // Place at the system-level managed settings path:
+  //   macOS:   /Library/Application Support/ClaudeCode/managed-mcp.json
+  //   Linux:   /etc/claude-code/managed-mcp.json
+  //   Windows: C:\Program Files\ClaudeCode\managed-mcp.json
+  //
+  // Option A: Exclusive control (users cannot add/modify MCP servers)
+  // Option B: Policy-based (allowlist/denylist what users can add)
+  //
+  // ── Option A: Exclusive Control ───────────────────────────────────────────
+  "mcpServers": {
+    "company-internal-api": {
+      "type": "http",
+      "url": "https://mcp.internal.company.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${COMPANY_MCP_TOKEN}"
+      }
+    },
+    "company-github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  },
+
+  // ── Option B: Policy-Based Control ────────────────────────────────────────
+  // (Use instead of mcpServers if you want users to still add their own)
+
+  // "allowedMcpServers": [
+  //   { "name": "github" },
+  //   { "name": "memory" },
+  //   { "urlPattern": "https://mcp.*.company.com/*" },
+  //   { "commandPattern": "npx.*@modelcontextprotocol/.*" }
+  // ],
+
+  // "deniedMcpServers": [
+  //   { "name": "filesystem" },
+  //   { "urlPattern": ".*\\.onion/.*" }
+  // ]
+  // NOTE: denylist always wins over allowlist.
+}
