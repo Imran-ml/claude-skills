@@ -610,6 +610,7 @@ Contributions are welcome! This repository grows better with community-shared sk
 ## About Author
 
 **Name:** Muhammad Imran Zaman
+
 **Email:** imranzaman.ml@gmail.com
 
 **Professional Links:**
